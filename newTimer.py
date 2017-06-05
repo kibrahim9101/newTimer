@@ -15,6 +15,8 @@ logger.addHandler(console_handler)
 class bombUI(tk.Tk):
 	def __init__(self, *args, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
+		self.minsize(width=800, height=400)
+		self.maxsize(width=800, height=400)
 		container = tk.Frame(self)
 		container.pack(side="top", fill="both", expand=True)
 		container.grid_rowconfigure(0, weight=1)
@@ -70,7 +72,7 @@ class bombUI(tk.Tk):
 
 class armPage(tk.Frame):
 	def __init__(self, parent, controller):
-		tk.Frame.__init__(self, parent)
+		tk.Frame.__init__(self, parent, width=800, height=400)
 		self.controller = controller
 		self.grid()
 		self.createWidgets()
@@ -107,7 +109,7 @@ class armPage(tk.Frame):
 
 class timerPage(tk.Frame):
 	def __init__(self, parent, controller):
-		tk.Frame.__init__(self, parent)
+		tk.Frame.__init__(self, parent, width=800, height=400)
 		self.controller = controller
 		self.errorMessage = tk.StringVar()
 		self.grid()
