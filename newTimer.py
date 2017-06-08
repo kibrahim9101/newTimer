@@ -20,7 +20,9 @@ class bombUI(tk.Tk):
 		container = tk.Frame(self)
 		container.pack(side="top", fill="both", expand=True)
 		container.grid_rowconfigure(0, weight=1)
+		container.grid_rowconfigure(2, weight=1)
 		container.grid_columnconfigure(0, weight=1)
+		container.grid_columnconfigure(2, weight=1)
 		mixer.init()
 		self.airRaid = mixer.Sound('airraid.wav')
 		self.hours = tk.IntVar()
@@ -36,7 +38,7 @@ class bombUI(tk.Tk):
 			page_name = F.__name__
 			frame = F(parent=container, controller=self)
 			self.frames[page_name] = frame
-			frame.grid(row=0, column=0, sticky="nsew")
+			frame.grid(row=1, column=1, sticky="nsew")
 			
 		self.show_frame("armPage")
 
