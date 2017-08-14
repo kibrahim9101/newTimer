@@ -96,7 +96,7 @@ class startPage(tk.Frame):
 		self.secBox.grid(row=2, column=1, sticky='e')
 		self.codeBox = tk.Entry(self, textvariable=self.controller.startCode)
 		self.codeBox.grid(row=3, column=1, sticky='e')
-		self.startButton = tk.Button(self, text="start Bomb",
+		self.startButton = tk.Button(self, text="start timer",
 									command=self.getValues)
 		self.startButton.grid(row=4, column=1, sticky='e')
 
@@ -122,12 +122,12 @@ class timerPage(tk.Frame):
 		self.timerLabel.grid(row=0, column=0)
 		self.stopBox = tk.Entry(self, textvariable=self.controller.stopCode)
 		self.stopBox.grid(row=1, column=0)
-		self.stopButton = tk.Button(self, text="stop", command=self.stopBomb)
+		self.stopButton = tk.Button(self, text="stop", command=self.stoptimer)
 		self.stopButton.grid(row=2, column=0)
 		self.errorLabel = tk.Label(self, textvariable=self.errorMessage)
 		self.errorLabel.grid(row=3, column=0)
 
-	def stopBomb(self):
+	def stoptimer(self):
 		start = self.controller.startCode.get()
 		stop = self.controller.stopCode.get()
 		if (stop == start):
@@ -142,6 +142,6 @@ class timerPage(tk.Frame):
 		
 	
 
-newBomb = bombUI()
-newBomb.mainloop()
+newtimer = timerUI()
+newtimer.mainloop()
 		
