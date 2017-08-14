@@ -12,7 +12,7 @@ logger.addHandler(console_handler)
 
 
 
-class bombUI(tk.Tk):
+class timerUI(tk.Tk):
 	def __init__(self, *args, **kwargs):
 		tk.Tk.__init__(self, *args, **kwargs)
 		self.minsize(width=800, height=400)
@@ -62,9 +62,9 @@ class bombUI(tk.Tk):
 		countdownString = "%02d:%02d:%02d" % (h, m, s)
 		self.timer.set(countdownString)
 		if (total == 0):
-			total = 0
+			self.after_cancel(self.tick)
 			self.siren()
-		else:
+		elif (total > 0):
 			total = total - 1
 			self.total.set(total)
 			self.tick
