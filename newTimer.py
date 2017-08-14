@@ -28,19 +28,19 @@ class timerUI(tk.Tk):
 		self.hours = tk.IntVar()
 		self.minutes = tk.IntVar()
 		self.seconds = tk.IntVar()
-		self.armCode = tk.StringVar()
-		self.disarmCode = tk.StringVar()
+		self.startCode = tk.StringVar()
+		self.stopCode = tk.StringVar()
 		self.total = tk.IntVar()
 		self.timer = tk.StringVar()
 		self.tick = None
 		self.frames = {}
-		for F in (armPage, timerPage):
+		for F in (startPage, timerPage):
 			page_name = F.__name__
 			frame = F(parent=container, controller=self)
 			self.frames[page_name] = frame
 			frame.grid(row=1, column=1, sticky="nsew")
 			
-		self.show_frame("armPage")
+		self.show_frame("startPage")
 
 	def show_frame(self, page_name):
 		frame = self.frames[page_name]
@@ -72,7 +72,7 @@ class timerUI(tk.Tk):
 		self.airRaid.play(0)
 		
 
-class armPage(tk.Frame):
+class startPage(tk.Frame):
 	def __init__(self, parent, controller):
 		tk.Frame.__init__(self, parent, width=800, height=400)
 		self.controller = controller
@@ -86,7 +86,7 @@ class armPage(tk.Frame):
 		self.minLabel.grid(row=1, column=0, sticky='w')
 		self.secLabel = tk.Label(self, text="Seconds")
 		self.secLabel.grid(row=2, column=0, sticky='w')
-		self.codeLabel = tk.Label(self, text="Disarm Code")
+		self.codeLabel = tk.Label(self, text="stop Code")
 		self.codeLabel.grid(row=3, column=0, sticky='w')
 		self.hrBox = tk.Entry(self, textvariable=self.controller.hours)
 		self.hrBox.grid(row=0, column=1, sticky='e')
@@ -94,17 +94,17 @@ class armPage(tk.Frame):
 		self.minBox.grid(row=1, column=1, sticky='e')
 		self.secBox = tk.Entry(self, textvariable=self.controller.seconds)
 		self.secBox.grid(row=2, column=1, sticky='e')
-		self.codeBox = tk.Entry(self, textvariable=self.controller.armCode)
+		self.codeBox = tk.Entry(self, textvariable=self.controller.startCode)
 		self.codeBox.grid(row=3, column=1, sticky='e')
-		self.armButton = tk.Button(self, text="Arm Bomb",
+		self.startButton = tk.Button(self, text="start Bomb",
 									command=self.getValues)
-		self.armButton.grid(row=4, column=1, sticky='e')
+		self.startButton.grid(row=4, column=1, sticky='e')
 
 	def getValues(self):
 		self.controller.hours.get()
 		self.controller.minutes.get()
 		self.controller.seconds.get()
-		self.controller.armCode.get()
+		self.controller.startCode.get()
 		self.controller.totalSeconds()
 		self.controller.show_frame("timerPage")
 		self.controller.countdown()
@@ -120,21 +120,21 @@ class timerPage(tk.Frame):
 	def createWidgets(self):
 		self.timerLabel = tk.Label(self, textvariable=self.controller.timer, font=('Helvetica', 18))
 		self.timerLabel.grid(row=0, column=0)
-		self.disarmBox = tk.Entry(self, textvariable=self.controller.disarmCode)
-		self.disarmBox.grid(row=1, column=0)
-		self.disarmButton = tk.Button(self, text="Disarm", command=self.disarmBomb)
-		self.disarmButton.grid(row=2, column=0)
+		self.stopBox = tk.Entry(self, textvariable=self.controller.stopCode)
+		self.stopBox.grid(row=1, column=0)
+		self.stopButton = tk.Button(self, text="stop", command=self.stopBomb)
+		self.stopButton.grid(row=2, column=0)
 		self.errorLabel = tk.Label(self, textvariable=self.errorMessage)
 		self.errorLabel.grid(row=3, column=0)
 
-	def disarmBomb(self):
-		arm = self.controller.armCode.get()
-		disarm = self.controller.disarmCode.get()
-		if (disarm == arm):
+	def stopBomb(self):
+		start = self.controller.startCode.get()
+		stop = self.controller.stopCode.get()
+		if (stop == start):
 			self.controller.after_cancel(self.controller.tick)
 			self.controller.airRaid.stop()
 			self.controller.total.set(0)
-			self.controller.show_frame("armPage")
+			self.controller.show_frame("startPage")
 		else:
 			self.errorMessage.set("ERROR!")
 
