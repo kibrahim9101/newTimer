@@ -24,7 +24,7 @@ class timerUI(tk.Tk):
 		container.grid_columnconfigure(0, weight=1)
 		container.grid_columnconfigure(2, weight=1)
 		mixer.init()
-		self.airRaid = mixer.Sound('airraid.wav')
+		self.airRaid = mixer.Sound('airraid.wav') #change sound file name and path here
 		self.hours = tk.IntVar()
 		self.minutes = tk.IntVar()
 		self.seconds = tk.IntVar()
